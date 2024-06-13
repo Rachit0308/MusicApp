@@ -1,0 +1,7 @@
+.form-container {
+  max-width: 500px;
+  border-radius: 20px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0.1, 0.4) !important;
+  padding: 2rem;
+  margin: auto;
+}

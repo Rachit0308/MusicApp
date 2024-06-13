@@ -1,0 +1,28 @@
+import useAxios from "../../hooks/useAxios";
+import { useEffect } from "react";
+import MusicCard from "./MusicCard";
+
+const MusicDetail = () => {
+  const { response, fetchData } = useAxios();
+
+  const fetchMusicData = () => {
+    fetchData({
+      url: "getMusicDetails?musicId=07468e7d-9014-4282-b500-70cab9cc273b",
+      method: "GET",
+    });
+  };
+
+  useEffect(() => {
+    fetchMusicData();
+  }, []);
+
+  return (
+    <>
+      <div className="d-flex justify-content-center align-items-center">
+        <MusicCard cardData={response?.rows[0]} btnTitle="Purchase" />
+      </div>
+    </>
+  );
+};
+
+export default MusicDetail;

@@ -1,0 +1,21 @@
+button {
+  background-color: #ff5722 !important;
+  border-color: #ff5722 !important;
+  border-radius: 50px !important;
+}
+
+button:hover {
+  background-color: #e64a19 !important;
+  border-color: #e64a19 !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
