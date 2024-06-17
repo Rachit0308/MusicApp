@@ -28,7 +28,7 @@ const UserDetailForm = () => {
   console.log(response, "response");
   const onSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      await fetchData({
+      const buyerData = await fetchData({
         url: "addbuyerinfo",
         method: "POST",
         data: values,
@@ -47,6 +47,7 @@ const UserDetailForm = () => {
           state: {
             email: values.email,
             clientSecret: responseData?.clientSecret,
+            buyerId: buyerData?.id,
           },
         });
       }
