@@ -10,7 +10,13 @@ const CustomCard = ({
 }) => {
   return (
     <Card style={style} className={className}>
-      {isImage && <Card.Img variant="top" src={url} />}
+      {isImage && (
+        <Card.Img
+          variant="top"
+          src={url}
+          style={{ maxWidth: "100%", maxHeight: "200px", padding: "0.3rem", borderRadius:"0.2rem" }}
+        />
+      )}
       {children}
     </Card>
   );

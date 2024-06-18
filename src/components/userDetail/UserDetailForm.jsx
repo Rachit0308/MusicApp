@@ -1,4 +1,5 @@
-import { Form, Row } from "react-bootstrap";
+// UserDetailForm.js
+import { Form, Row, Col, Alert } from "react-bootstrap";
 import { Formik, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import PropTypes from "prop-types";
@@ -22,10 +23,11 @@ const initialValues = {
   email: "",
 };
 
-const UserDetailForm = () => {
-  const { response, loading, fetchData } = useAxios();
+const UserDetailForm = ({ price, musicId }) => {
+  console.log(musicId, "musicId");
+  const { response, loading, fetchData, error } = useAxios();
   const navigate = useNavigate();
-  console.log(response, "response");
+  console.log(error?.error, "response");
   const onSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
       const buyerData = await fetchData({
@@ -37,8 +39,8 @@ const UserDetailForm = () => {
         url: "/stripeintent",
         method: "POST",
         data: {
-          productId: "273769-2362320fwfe6234-efe342",
-          amount: "80",
+          productId: musicId,
+          amount: price.toString(),
         },
       });
       if (responseData) {
@@ -122,6 +124,11 @@ const UserDetailForm = () => {
               disabled={isSubmitting || loading}
             />
           </div>
+          {error && (
+            <Alert variant="danger" className="mt-3">
+              {error?.error}
+            </Alert>
+          )}
         </Form>
       )}
     </Formik>
@@ -129,12 +136,8 @@ const UserDetailForm = () => {
 };
 
 UserDetailForm.propTypes = {
-  initialValues: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    mobile: PropTypes.string.isRequired,
-  }).isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  price: PropTypes.number.isRequired,
+  musicId: PropTypes.string.isRequired,
 };
 
 export default UserDetailForm;

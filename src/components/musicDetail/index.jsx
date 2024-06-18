@@ -1,13 +1,14 @@
 import useAxios from "../../hooks/useAxios";
 import { useEffect } from "react";
 import MusicCard from "./MusicCard";
+import PropTypes from "prop-types";
 
-const MusicDetail = () => {
+const MusicDetail = ({ musicId }) => {
   const { response, fetchData } = useAxios();
 
   const fetchMusicData = () => {
     fetchData({
-      url: "getMusicDetails?musicId=07468e7d-9014-4282-b500-70cab9cc273b",
+      url: `getMusicDetails?musicId=${musicId}`,
       method: "GET",
     });
   };
@@ -19,10 +20,17 @@ const MusicDetail = () => {
   return (
     <>
       <div className="d-flex justify-content-center align-items-center">
-        <MusicCard cardData={response?.rows[0]} btnTitle="Purchase" />
+        <MusicCard
+          cardData={response?.rows[0]}
+          btnTitle="Purchase"
+        />
       </div>
     </>
   );
+};
+
+MusicDetail.propTypes = {
+  musicId: PropTypes.string.isRequired,
 };
 
 export default MusicDetail;

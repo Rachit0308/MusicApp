@@ -17,7 +17,7 @@ const cardDataShape = PropTypes.shape({
   UserId: PropTypes.string.isRequired,
   VideoUrl: PropTypes.string.isRequired,
 });
-const MusicCard = ({ btnTitle, cardData }) => {
+const MusicCard = ({ btnTitle, cardData, musicId }) => {
   const navigate = useNavigate();
   return (
     <CustomCard
@@ -25,7 +25,7 @@ const MusicCard = ({ btnTitle, cardData }) => {
       url={cardData?.ImageUrl}
       style={{
         maxWidth: "500px",
-        borderRadius: "20px",
+        borderRadius: "0.3rem",
         boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
       }}
       className="my-3 mx-auto d-flex justify-content-center align-items-center"
@@ -48,7 +48,19 @@ const MusicCard = ({ btnTitle, cardData }) => {
       <Card.Body>
         <CustomButton
           type="button"
-          clickHandler={() => navigate("/user-detail")}
+          style={{
+            paddingRight: "50px",
+            paddingLeft: "50px",
+            marginTop: "50px",
+          }}
+          clickHandler={() =>
+            navigate("/user-detail", {
+              state: {
+                musicId: cardData?.Id,
+                price: cardData?.Price,
+              },
+            })
+          }
           title={btnTitle}
         />
       </Card.Body>
@@ -57,9 +69,9 @@ const MusicCard = ({ btnTitle, cardData }) => {
 };
 
 MusicCard.propTypes = {
-  isImage: PropTypes.bool.isRequired,
   btnTitle: PropTypes.string.isRequired,
   cardData: cardDataShape.isRequired,
+  musicId: PropTypes.string.isRequired,
 };
 
 export default MusicCard;
