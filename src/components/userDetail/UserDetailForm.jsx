@@ -50,6 +50,8 @@ const UserDetailForm = ({ price, musicId }) => {
             email: values.email,
             clientSecret: responseData?.clientSecret,
             buyerId: buyerData?.id,
+            musicId,
+            price
           },
         });
       }

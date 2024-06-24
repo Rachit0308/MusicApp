@@ -6,13 +6,13 @@ import { useLocation } from "react-router-dom";
 function Payment(props) {
   const { stripePromise } = props;
   const location = useLocation();
-  const { email, clientSecret, buyerId } = location.state;
+  const { email, clientSecret, buyerId, musicId, price } = location.state;
   console.log(clientSecret, "clientSecret");
   return (
     <>
       {clientSecret && stripePromise && (
         <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <CheckoutForm email={email} buyerId={buyerId} />
+          <CheckoutForm price={price} musicId={musicId} email={email} buyerId={buyerId} />
         </Elements>
       )}
     </>

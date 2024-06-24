@@ -9,8 +9,8 @@ import "./CheckoutForm.css";
 import { Alert } from "react-bootstrap";
 import useAxios from "../../hooks/useAxios";
 import { useNavigate } from "react-router-dom";
-
-export default function CheckoutForm({ email, buyerId }) {
+import PropTypes from "prop-types";
+function CheckoutForm({ email, buyerId, musicId, price }) {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState(null);
@@ -39,32 +39,27 @@ export default function CheckoutForm({ email, buyerId }) {
         url: "addbuyertransaction",
         method: "POST",
         data: {
-          musicid: "07468e7d-9014-4282-b500-70cab9cc273b",
+          musicid: musicId,
           buyerId: buyerId,
           response: "ous fufu uef eg ou ofoe",
           status: 1,
-          amount: "80",
+          amount: price,
         },
       });
       if (response) {
-        navigate("/success");
+        navigate("/completion");
       }
     }
-    // This point will only be reached if there is an immediate error when
-    // confirming the payment. Otherwise, your customer will be redirected to
-    // your `return_url`. For some payment methods like iDEAL, your customer will
-    // be redirected to an intermediate site first to authorize the payment, then
-    // redirected to the `return_url`.
     if (error.type === "card_error" || error.type === "validation_error") {
       await fetchData({
         url: "addbuyertransaction",
         method: "POST",
         data: {
-          musicid: "07468e7d-9014-4282-b500-70cab9cc273b",
+          musicid: musicId,
           buyerId: buyerId,
           response: "ous fufu uef eg ou ofoe",
           status: 0,
-          amount: "80",
+          amount: price,
         },
       });
       setMessage(error.message);
@@ -73,11 +68,11 @@ export default function CheckoutForm({ email, buyerId }) {
         url: "addbuyertransaction",
         method: "POST",
         data: {
-          musicid: "07468e7d-9014-4282-b500-70cab9cc273b",
+          musicid: musicId,
           buyerId: buyerId,
           response: "ous fufu uef eg ou ofoe",
           status: 0,
-          amount: "80",
+          amount: price,
         },
       });
       setMessage("An unexpected error occured.");
@@ -120,3 +115,12 @@ export default function CheckoutForm({ email, buyerId }) {
     </CustomCard>
   );
 }
+
+CheckoutForm.propTypes = {
+  price: PropTypes.number.isRequired,
+  musicId: PropTypes.string.isRequired,
+  buyerId: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+};
+
+export default CheckoutForm
