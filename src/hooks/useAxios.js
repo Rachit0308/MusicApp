@@ -51,12 +51,12 @@ const useAxios = () => {
       setResponse(result?.data);
       return result?.data;
     } catch (error) {
-      if (axios.isCancel(error)) {
-        console.log("Request Cancelled", error.message);
-      } else {
+      // if (axios.isCancel(error)) {
+      //   console.log("Request Cancelled", error.message);
+      // } else {
         setError(error?.response ? error?.response?.data : error?.message);
         throw error;
-      }
+      // }
     } finally {
       setLoading(false);
     }

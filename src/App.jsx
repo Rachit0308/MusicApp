@@ -23,7 +23,7 @@ function App() {
             element={<Payment stripePromise={stripePromise} />}
           />
           <Route
-            path="/completion"
+            path="/completion/:buyerId/:musicId/:amount"
             element={<Completion stripePromise={stripePromise} />}
           />
         </Routes>

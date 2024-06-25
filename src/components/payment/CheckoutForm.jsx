@@ -16,67 +16,29 @@ function CheckoutForm({ email, buyerId, musicId, price }) {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const userEmail = email;
-  const { fetchData } = useAxios();
-  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!stripe || !elements) {
-      // Stripe.js has not yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
     setIsLoading(true);
 
-    const { error, paymentIntent } = await stripe.confirmPayment({
+    const { error } = await stripe.confirmPayment({
       elements,
-      redirect: "if_required",
+      confirmParams: {
+        // Make sure to change this to your payment completion page
+        return_url: `${window.location.origin}/completion/${buyerId}/${musicId}/${price}`,
+      },
     });
-    console.log(paymentIntent, "paymentIntent", error, "erro");
-    if (paymentIntent?.status === "succeeded") {
-      const response = await fetchData({
-        url: "addbuyertransaction",
-        method: "POST",
-        data: {
-          musicid: musicId,
-          buyerId: buyerId,
-          response: "ous fufu uef eg ou ofoe",
-          status: 1,
-          amount: price,
-        },
-      });
-      if (response) {
-        navigate("/completion");
-      }
-    }
+    console.log(error, "error");
     if (error.type === "card_error" || error.type === "validation_error") {
-      await fetchData({
-        url: "addbuyertransaction",
-        method: "POST",
-        data: {
-          musicid: musicId,
-          buyerId: buyerId,
-          response: "ous fufu uef eg ou ofoe",
-          status: 0,
-          amount: price,
-        },
-      });
       setMessage(error.message);
     } else {
-      await fetchData({
-        url: "addbuyertransaction",
-        method: "POST",
-        data: {
-          musicid: musicId,
-          buyerId: buyerId,
-          response: "ous fufu uef eg ou ofoe",
-          status: 0,
-          amount: price,
-        },
-      });
       setMessage("An unexpected error occured.");
     }
+
     setIsLoading(false);
   };
 
