@@ -74,6 +74,7 @@ function Completion(props) {
               <img src={PaymentSuccess} alt="payment-success" />
             </div>
             <h3>Purchase Successful!</h3>
+            <a href={localStorage.getItem("fileUrl")} >Download File</a>
           </>
         ) : (
           <>

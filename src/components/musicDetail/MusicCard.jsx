@@ -19,6 +19,12 @@ const cardDataShape = PropTypes.shape({
 });
 const MusicCard = ({ btnTitle, cardData, musicId }) => {
   const navigate = useNavigate();
+  if(cardData?.AudioUrl){
+    localStorage.setItem("fileUrl", cardData?.AudioUrl);
+  }
+ else if(cardData?.VideoUrl){
+  localStorage.setItem("fileUrl", cardData?.VideoUrl);
+ }
   return (
     <CustomCard
       isImage={true}
