@@ -9,11 +9,12 @@ import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
-    .email("Invalid email address")
+    .matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,14}$/, "Invalid email address")
+    // .email()
     .required("Email is required"),
   name: Yup.string().required("Name is required"),
   mobile: Yup.string()
-    .matches(/^[0-9]{10}$/, "Mobile number must be 10 digits")
+    .matches(/^[0-9]{11,15}$/, "Mobile number must have country code")
     .required("Mobile number is required"),
 });
 
