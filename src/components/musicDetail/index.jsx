@@ -15,6 +15,7 @@ const MusicDetail = ({ musicId }) => {
 
   useEffect(() => {
     fetchMusicData();
+    localStorage.setItem('isTip', "0");
   }, []);
 
   return (

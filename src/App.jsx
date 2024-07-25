@@ -5,6 +5,7 @@ import UserDetailPage from "./pages/UserDetail";
 import { loadStripe } from "@stripe/stripe-js";
 import Payment from "./components/payment/Payment";
 import Completion from "./components/payment/Completion";
+import Tip from "./pages/Tip";
 
 function App() {
   const stripePromise = loadStripe(
@@ -22,6 +23,7 @@ function App() {
             path="/payment"
             element={<Payment stripePromise={stripePromise} />}
           />
+          <Route path="/tip/:userId" element={<Tip />} />
           <Route
             path="/completion/:buyerId/:musicId/:amount"
             element={<Completion stripePromise={stripePromise} />}

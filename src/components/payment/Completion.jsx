@@ -15,24 +15,32 @@ function Completion(props) {
 
   useEffect(() => {
     if (!stripePromise) return;
+    const isTip = !!parseInt(localStorage.getItem('isTip')); // Convert to boolean
+   console.log('====================================');
+   console.log(isTip);
+   console.log('====================================');
+   
+    const finalMusicId = isTip ? null : musicId;
+    const userId = isTip ? musicId : null;
 
     stripePromise.then(async (stripe) => {
       const url = new URL(window.location);
       const clientSecret = url.searchParams.get("payment_intent_client_secret");
-      const { error, paymentIntent } = await stripe.retrievePaymentIntent(
-        clientSecret
-      );
+      const { error, paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
       console.log(paymentIntent, "paymentIntent");
+
       if (error) {
         await fetchData({
           url: "addbuyertransaction",
           method: "POST",
           data: {
-            musicid: musicId,
+            musicId: finalMusicId,
             buyerId: buyerId,
             response: error?.message,
             status: 0,
             amount: amount,
+            userId: userId,
+            isTip: isTip ? 1 : 0,
           },
         });
       } else if (paymentIntent.status === "succeeded") {
@@ -40,11 +48,13 @@ function Completion(props) {
           url: "addbuyertransaction",
           method: "POST",
           data: {
-            musicid: musicId,
+            musicId: finalMusicId,
             buyerId: buyerId,
             response: paymentIntent.status,
             status: 1,
             amount: amount,
+            userId: userId,
+            isTip: isTip ? 1 : 0,
           },
         });
       } else {
@@ -52,19 +62,22 @@ function Completion(props) {
           url: "addbuyertransaction",
           method: "POST",
           data: {
-            musicid: musicId,
+            musicId: finalMusicId,
             buyerId: buyerId,
             response: paymentIntent.status,
             status: 0,
             amount: amount,
+            userId: userId,
+            isTip: isTip ? 1 : 0,
           },
         });
       }
+
       setMessageBody(
         error ? (
           <>
             <div>
-              <img src={PaymentFailed} alt="payment-success" />
+              <img src={PaymentFailed} alt="payment-failed" />
             </div>
             <h3>Purchase Failed!</h3>
           </>
@@ -74,17 +87,12 @@ function Completion(props) {
               <img src={PaymentSuccess} alt="payment-success" />
             </div>
             <h3>Purchase Successful!</h3>
-            <a href={localStorage.getItem("fileUrl")} >Download File</a>
+            {!isTip && <a href={localStorage.getItem("fileUrl")}>Download File</a>}
           </>
         ) : (
           <>
             <div>
-              <img
-                height={225}
-                width={225}
-                src={PaymentFailed}
-                alt="payment-success"
-              />
+              <img height={225} width={225} src={PaymentFailed} alt="payment-failed" />
             </div>
             <h3>Purchase Failed!</h3>
           </>

@@ -29,7 +29,7 @@ function CheckoutForm({ email, buyerId, musicId, price }) {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `${window.location.origin}/completion/${buyerId}/${musicId}/${price}`,
+        return_url: `${window.location.origin}/completion/${buyerId}/${musicId}/${price}`
       },
     });
     console.log(error, "error");
