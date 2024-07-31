@@ -20,8 +20,8 @@ function Completion(props) {
    console.log(isTip);
    console.log('====================================');
    
-    const finalMusicId = isTip ? null : musicId;
-    const userId = isTip ? musicId : null;
+    const finalMusicId = isTip ? "" : musicId;
+    const userId = isTip ? musicId : "";
 
     stripePromise.then(async (stripe) => {
       const url = new URL(window.location);
