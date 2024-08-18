@@ -40,6 +40,9 @@ const MusicCard = ({ btnTitle, cardData, musicId }) => {
         <Card.Text className="song-title">
           Song Title: <strong>{cardData?.Title}</strong>
         </Card.Text>
+        <Card.Text>
+          Artist Name: <strong>{cardData?.ArtistName}</strong>
+        </Card.Text>
         <Card.Text className="music-category">
           Music Category: <strong>{cardData?.Category}</strong>
         </Card.Text>
