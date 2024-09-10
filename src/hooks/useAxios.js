@@ -7,7 +7,7 @@ const useAxios = () => {
   const [error, setError] = useState(null);
 
   const axiosInstance = axios.create({
-    baseURL: "http://192.168.1.12:3008",
+    baseURL: "http://13.201.37.141:3008",
   });
 
   axiosInstance.interceptors.request.use(

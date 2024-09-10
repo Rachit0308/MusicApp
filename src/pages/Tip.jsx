@@ -6,7 +6,7 @@ import axios from 'axios';
 // Function to get user details from the API
 const getUserDetail = async (userId) => {
   try {
-    const response = await axios.get(`http://192.168.1.12:3008/getUserDetails?userId=${userId}`, {
+    const response = await axios.get(`http://13.201.37.141:3008/getUserDetails?userId=${userId}`, {
       headers: {
         'Cache-Control': 'no-cache' // Add cache control to avoid 304 error
       }
