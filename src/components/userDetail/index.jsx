@@ -1,19 +1,19 @@
-import "./UserDetailMain.css";
-import UserDetailForm from "./UserDetailForm";
-import CustomCard from "../common/CustomCard";
-import PropTypes from "prop-types";
+import './UserDetailMain.css';
+import UserDetailForm from './UserDetailForm';
+import CustomCard from '../common/CustomCard';
+import PropTypes from 'prop-types';
 
-function UserDetailMain({ price, musicId }) {
+function UserDetailMain({ price, musicId, albumId }) {
   return (
     <CustomCard
-      className="form-container"
+      className='form-container'
       style={{
-        maxWidth: "500px",
-        borderRadius: "20px",
-        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+        maxWidth: '500px',
+        borderRadius: '20px',
+        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
       }}
     >
-      <UserDetailForm price={price} musicId={musicId}/>
+      <UserDetailForm price={price} musicId={musicId} albumId={albumId} />
     </CustomCard>
   );
 }
@@ -21,6 +21,7 @@ function UserDetailMain({ price, musicId }) {
 UserDetailMain.propTypes = {
   price: PropTypes.number.isRequired,
   musicId: PropTypes.string.isRequired,
+  albumId: PropTypes.string.isRequired,
 };
 
 export default UserDetailMain;

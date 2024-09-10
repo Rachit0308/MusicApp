@@ -1,20 +1,14 @@
-import { Card } from "react-bootstrap";
-import PropTypes from "prop-types";
+import { Card } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-const CustomCard = ({
-  isImage = false,
-  url,
-  children,
-  className = "",
-  style,
-}) => {
+const CustomCard = ({ isImage = false, url, children, className = '', style }) => {
   return (
-    <Card style={style} className={className}>
+    <Card style={{ ...style }} className={className}>
       {isImage && (
         <Card.Img
-          variant="top"
+          variant='top'
           src={url}
-          style={{ maxWidth: "100%", maxHeight: "200px", padding: "0.3rem", borderRadius:"0.2rem" }}
+          style={{ width: 'auto', maxHeight: '150px', padding: '0.3rem', borderRadius: '0.2rem' }}
         />
       )}
       {children}

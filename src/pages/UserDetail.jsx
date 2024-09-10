@@ -3,11 +3,11 @@ import UserDetailMain from "../components/userDetail";
 
 const UserDetailPage = () => {
   const location = useLocation();
-  const { price, musicId } = location?.state;
-  console.log(price, musicId, "price-musicId");
+  const { price, musicId, albumId } = location?.state;
+  console.log(price, musicId, albumId, "price-musicId");
   return (
     <>
-      <UserDetailMain price={price} musicId={musicId} />
+      <UserDetailMain price={price} musicId={musicId} albumId={albumId} />
     </>
   );
 };

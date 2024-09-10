@@ -24,8 +24,9 @@ const initialValues = {
   email: "",
 };
 
-const UserDetailForm = ({ price, musicId }) => {
+const UserDetailForm = ({ price, musicId, albumId }) => {
   console.log(musicId, "musicId");
+  console.log(albumId, "albumId");
   const { response, loading, fetchData, error } = useAxios();
   const navigate = useNavigate();
   console.log(error?.error, "response");
@@ -51,7 +52,7 @@ const UserDetailForm = ({ price, musicId }) => {
             email: values.email,
             clientSecret: responseData?.clientSecret,
             buyerId: buyerData?.id,
-            musicId,
+            albumId,
             price
           },
         });
