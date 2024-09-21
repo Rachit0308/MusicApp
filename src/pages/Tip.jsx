@@ -53,7 +53,7 @@ const Tip = () => {
   const navigate = useNavigate();
   const handlePurchase = () => {
     if (!price) {
-      setError('Tip amount cannot be empty');
+      setError(' Please enter valid tip amount');
       return;
     }
 
@@ -81,6 +81,8 @@ const Tip = () => {
               placeholder="Enter tip amount"
               value={price}
               onChange={handleTipChange}
+              inputMode="numeric" 
+              pattern="[0-9]*"
             />
           </Form.Group>
           <div className="d-flex justify-content-center">

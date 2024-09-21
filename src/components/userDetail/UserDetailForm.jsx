@@ -9,12 +9,15 @@ import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
-    .matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,14}$/, "Invalid email address")
+    .matches(
+      /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,14}$/,
+      "Invalid email address"
+    )
     // .email()
     .required("Email is required"),
   name: Yup.string().required("Name is required"),
   mobile: Yup.string()
-    .matches(/^[0-9]{11,15}$/, "Mobile number must have country code")
+    .matches(/^[0-9]{8,15}$/, "Please Enter a Valid Mobile Number ")
     .required("Mobile number is required"),
 });
 
@@ -53,7 +56,7 @@ const UserDetailForm = ({ price, musicId, albumId }) => {
             clientSecret: responseData?.clientSecret,
             buyerId: buyerData?.id,
             albumId,
-            price
+            price,
           },
         });
       }
@@ -108,7 +111,9 @@ const UserDetailForm = ({ price, musicId, albumId }) => {
               <Field
                 as={Form.Control}
                 name="mobile"
-                type="text"
+                type="number" // Changes the input type to number
+                inputMode="numeric" // Ensures numeric keyboard on mobile devices
+                pattern="[0-9]*" // Restricts input to numbers
                 placeholder="Mobile Number"
                 isInvalid={touched.mobile && !!errors.mobile}
               />
