@@ -8,6 +8,7 @@ function Payment(props) {
   const location = useLocation();
   const { email, clientSecret, buyerId, musicId, albumId, price } = location.state;
   console.log(clientSecret, 'clientSecret');
+  console.log(musicId, 'musicId at Payment');
   return (
     <>
       {clientSecret && stripePromise && (

@@ -21,7 +21,7 @@ const MusicDetail = ({ musicId }) => {
   return (
     <>
       <div className='d-flex justify-content-center align-items-center'>
-        <MusicCard cardData={response?.rows[0]} btnTitle='Purchase' />
+        <MusicCard cardData={response?.rows[0]} btnTitle='Purchase' musicId={musicId} />
       </div>
     </>
   );

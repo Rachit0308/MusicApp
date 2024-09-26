@@ -18,6 +18,7 @@ const cardDataShape = PropTypes.shape({
   VideoUrl: PropTypes.string.isRequired,
 });
 const MusicCard = ({ btnTitle, cardData, musicId }) => {
+  console.log("cardData>>>>>" + JSON.stringify(cardData));
   const navigate = useNavigate();
   if (cardData?.AudioUrl) {
     localStorage.setItem('fileUrl', cardData?.AudioUrl);
@@ -64,7 +65,7 @@ const MusicCard = ({ btnTitle, cardData, musicId }) => {
           clickHandler={() =>
             navigate('/user-detail', {
               state: {
-                musicId: cardData?.Id,
+                musicId: musicId,
                 price: cardData?.Price,
               },
             })
