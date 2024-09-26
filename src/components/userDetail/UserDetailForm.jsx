@@ -34,6 +34,7 @@ const UserDetailForm = ({ price, musicId, albumId }) => {
   const navigate = useNavigate();
   console.log(error?.error, "response");
   const onSubmit = async (values, { setSubmitting, resetForm }) => {
+    console.log("stripe intent>>>" + musicId);
     try {
       const buyerData = await fetchData({
         url: "addbuyerinfo",
@@ -57,6 +58,7 @@ const UserDetailForm = ({ price, musicId, albumId }) => {
             buyerId: buyerData?.id,
             albumId,
             price,
+            musicId
           },
         });
       }
