@@ -29,9 +29,10 @@ const MusicCard = ({ btnTitle, cardData, musicId }) => {
       isImage={true}
       url={cardData?.ImageUrl}
       style={{
-        maxWidth: '500px',
+        maxWidth: '600px',
         borderRadius: '0.3rem',
         boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+        width: "100%"
       }}
       className='my-3 mx-auto d-flex justify-content-center align-items-center'
     >
