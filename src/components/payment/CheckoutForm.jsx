@@ -7,7 +7,7 @@ import { Alert } from 'react-bootstrap';
 import useAxios from '../../hooks/useAxios';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-function CheckoutForm({ email, buyerId, musicId, albumId, price }) {
+function CheckoutForm({ email, buyerId, musicId, albumId, userId, price }) {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState(null);
@@ -21,14 +21,18 @@ function CheckoutForm({ email, buyerId, musicId, albumId, price }) {
     }
 
     setIsLoading(true);
-
+    let return_url = `${window.location.origin}/completion/${buyerId}/${musicId}/${price}`;
+    if (albumId) {
+      return_url = `${window.location.origin}/completion-album/${buyerId}/${albumId}/${price}`;
+    }
+    if (userId) {
+      return_url = `${window.location.origin}/completion-tip/${buyerId}/${userId}/${price}`;
+    }
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: musicId
-          ? `${window.location.origin}/completion/${buyerId}/${musicId}/${price}`
-          : `${window.location.origin}/completion-album/${buyerId}/${albumId}/${price}`,
+        return_url,
       },
     });
     console.log(error, 'error');

@@ -23,7 +23,14 @@ function App() {
           <Route path='/payment' element={<Payment stripePromise={stripePromise} />} />
           <Route path='/tip/:userId' element={<Tip />} />
           <Route path='/album/:id' element={<AlbumDetails />} />
-          <Route path='/completion-album/:buyerId/:musicId/:amount' element={<Completion type="album" stripePromise={stripePromise} />} />
+          <Route
+            path='/completion-album/:buyerId/:musicId/:amount'
+            element={<Completion type='album' stripePromise={stripePromise} />}
+          />
+          <Route
+            path='/completion-tip/:buyerId/:musicId/:amount'
+            element={<Completion type='tip' stripePromise={stripePromise} />}
+          />
           <Route path='/completion/:buyerId/:musicId/:amount' element={<Completion stripePromise={stripePromise} />} />
         </Routes>
       </Router>

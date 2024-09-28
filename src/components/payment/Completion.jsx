@@ -15,7 +15,7 @@ function Completion(props) {
 
   useEffect(() => {
     if (!stripePromise) return;
-    const isTip = !!parseInt(localStorage.getItem('isTip')); // Convert to boolean
+    const isTip = type == 'tip' ? true : false; // Convert to boolean
     console.log('====================================');
     console.log(isTip);
     console.log('====================================');

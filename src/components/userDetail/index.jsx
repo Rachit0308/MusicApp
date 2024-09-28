@@ -3,7 +3,7 @@ import UserDetailForm from './UserDetailForm';
 import CustomCard from '../common/CustomCard';
 import PropTypes from 'prop-types';
 
-function UserDetailMain({ price, musicId, albumId }) {
+function UserDetailMain({ price, musicId, albumId, userId }) {
   return (
     <CustomCard
       className='form-container'
@@ -13,7 +13,7 @@ function UserDetailMain({ price, musicId, albumId }) {
         boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
       }}
     >
-      <UserDetailForm price={price} musicId={musicId} albumId={albumId} />
+      <UserDetailForm price={price} musicId={musicId} albumId={albumId} userId={userId} />
     </CustomCard>
   );
 }
