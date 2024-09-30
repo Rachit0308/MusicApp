@@ -13,6 +13,12 @@ function Completion(props) {
   const params = useParams();
   const { buyerId, musicId, amount } = params;
 
+  const downloadURLS = (urls) => {
+    for (const url of urls) {
+      window.open(url);
+    }
+  };
+
   useEffect(() => {
     if (!stripePromise) return;
     const isTip = type == 'tip' ? true : false; // Convert to boolean
@@ -90,7 +96,36 @@ function Completion(props) {
               <img src={PaymentSuccess} alt='payment-success' />
             </div>
             <h3>Purchase Successful!</h3>
-            {!isTip && <a href={localStorage.getItem('fileUrl')}>Download File</a>}
+            {!isTip && (
+              <>
+                {type == 'album' ? (
+                  <a
+                    style={{
+                      color: 'rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1))',
+                      textDecoration: 'underline',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => {
+                      let data = localStorage.getItem('fileUrls');
+                      if (data) {
+                        try {
+                          let urls = JSON.parse(data);
+                          if (urls && urls.length) {
+                            downloadURLS(urls);
+                          }
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }
+                    }}
+                  >
+                    Download File
+                  </a>
+                ) : (
+                  <a href={localStorage.getItem('fileUrl')}>Download File</a>
+                )}
+              </>
+            )}
           </>
         ) : (
           <>

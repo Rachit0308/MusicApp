@@ -22,18 +22,19 @@ const AlbumDetail = ({ musicId }) => {
     localStorage.setItem('isTip', '0');
   }, []);
 
-  const getPrice = (data) => {
-    console.log('data', data);
-    if (data.allSongs) {
-      let price = 0;
-      for (const song of data.allSongs) {
-        price = price + Number(song.Price);
+  useEffect(() => {
+    if (response && response.data && response.data.allSongs) {
+      let songs = [];
+      for (const song of response.data.allSongs) {
+        if (song?.AudioUrl) {
+          songs.push(song?.AudioUrl);
+        } else if (song?.VideoUrl) {
+          songs.push(song?.VideoUrl);
+        }
       }
-      return price;
-    } else {
-      return 0;
+      localStorage.setItem('fileUrls', JSON.stringify(songs));
     }
-  };
+  }, [response]);
 
   return (
     <>
@@ -57,7 +58,7 @@ const AlbumDetail = ({ musicId }) => {
                   Songs: <strong>{response?.data?.songs}</strong>
                 </Card.Text>
                 <Card.Text className='music-price'>
-                  Album Price: <strong style={{ color: '#ff5722' }}>${getPrice(response?.data)}</strong>
+                  Album Price: <strong style={{ color: '#ff5722' }}>${response?.data?.Price}</strong>
                 </Card.Text>
                 <Card.Body>
                   <CustomButton
@@ -71,37 +72,13 @@ const AlbumDetail = ({ musicId }) => {
                       navigate('/user-detail', {
                         state: {
                           albumId: response?.data?.AlbumId,
-                          price: getPrice(response?.data),
+                          price: response?.data?.Price,
                         },
                       })
                     }
                     title='Purchase'
                   />
                 </Card.Body>
-                {/* <Card.Text className='music-price'>Music List:</Card.Text>
-                {response?.data?.allSongs.map((item) => (
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Card.Img
-                      variant='top'
-                      src={item.ImageUrl}
-                      style={{ width: '20%', padding: '0.3rem', borderRadius: '0.2rem' }}
-                    />
-                    <p style={{ textAlign: 'left', width: '30%' }}>
-                      Title: <span style={{ paddingLeft: '5px' }}>{item?.Title}</span>
-                    </p>
-                    <p style={{ textAlign: 'left', width: '30%' }}>
-                      Price:
-                      <strong style={{ color: '#ff5722', paddingLeft: '5px' }}>${item.Price}</strong>
-                    </p>
-                  </div>
-                ))} */}
               </Card.Body>
             </CustomCard>
           </div>
